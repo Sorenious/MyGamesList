@@ -1,7 +1,8 @@
 $(document).ready(function() {
   // Getting references to the name inout and player container, as well as the table body
   var nameInput = $("#player-name");
-  var playerList = $("tbody");
+  var passInput = $("#player-pass");
+  var playerList = $("#player-list");
   var playerContainer = $(".player-container");
   // Adding event listeners to the form to create a new object, and the button to delete
   // an Player
@@ -22,6 +23,9 @@ $(document).ready(function() {
     upsertPlayer({
       name: nameInput
         .val()
+        .trim(),
+      pass: passInput
+        .val()
         .trim()
     });
   }
@@ -38,7 +42,7 @@ $(document).ready(function() {
     newTr.data("player", playerData);
     newTr.append("<td>" + playerData.name + "</td>");
     newTr.append("<td> " + playerData.Games.length + "</td>");
-    newTr.append("<td><a href='/blog?player_id=" + playerData.id + "'>Go to Games</a></td>");
+    newTr.append("<td><a href='/list?player_id=" + playerData.id + "'>Go to Games</a></td>");
     newTr.append("<td><a href='/cms?player_id=" + playerData.id + "'>Create a Game</a></td>");
     newTr.append("<td><a style='cursor:pointer;color:red' class='delete-player'>Delete Player</a></td>");
     return newTr;
@@ -53,12 +57,13 @@ $(document).ready(function() {
       }
       renderPlayerList(rowsToAdd);
       nameInput.val("");
+      passInput.val("");
     });
   }
 
   // A function for rendering the list of players to the page
   function renderPlayerList(rows) {
-    playerList.children().not(":last").remove();
+    playerList.children().remove();
     playerContainer.children(".alert").remove();
     if (rows.length) {
       console.log(rows);

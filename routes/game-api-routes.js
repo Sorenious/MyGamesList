@@ -38,16 +38,37 @@ module.exports = function(app) {
         id: req.params.id
       }
     }).then(function(dbGame) {
-      console.log(dbGame);
+      //console.log(dbGame);
       res.json(dbGame);
     });
   });
 
   // POST route for saving a new game
   app.post("/api/games", function(req, res) {
-    db.Game.create(req.body).then(function(dbGame) {
-      res.json(dbGame);
+    client.games({
+      fields: ['id', 'name', 'url', 'cover'], // Return all fields
+      limit: 3, // Limit to 5 results
+      //offset: 15, // Index offset for results
+      search: req.body.title
+    }).then(response => {
+      // response.body contains the parsed JSON response to this query
+      console.log(response);
+      db.Game.create({
+        title: req.body.title,
+        game_id: response.body[0].id,
+        url: response.body[0].url,
+        cover: response.body[0].cover.url,
+        status: req.body.status,
+        PlayerId: req.body.PlayerId
+      }).then(function(dbGame) {
+        res.json(dbGame);
+      });
+    }).catch(error => {
+      throw error;
     });
+    console.log("\n" + client.games() + "\n");
+
+    
   });
 
   // DELETE route for deleting games
