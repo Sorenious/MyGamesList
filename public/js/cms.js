@@ -2,6 +2,9 @@ $(document).ready(function() {
   // Getting jQuery references to the game status, title, form, and player select
   var statusInput = $("#status");
   var titleInput = $("#title");
+  var gameIdInput = $("#game_id");
+  var urlInput = $("#url");
+  var coverInput = $("#cover");
   var cmsForm = $("#cms");
   var playerSelect = $("#player");
   // Adding an event listener for when the form is submitted
@@ -31,12 +34,21 @@ $(document).ready(function() {
   function handleFormSubmit(event) {
     event.preventDefault();
     // Wont submit the game if we are missing a status, title, or player
-    if (!titleInput.val().trim() || !statusInput.val().trim() || !playerSelect.val()) {
+    if (!titleInput.val().trim() || !gameIdInput.val().trim() || !urlInput.val().trim() || !coverInput.val().trim() || !statusInput.val().trim() || !playerSelect.val()) {
       return;
     }
     // Constructing a newGame object to hand to the database
     var newGame = {
       title: titleInput
+        .val()
+        .trim(),
+      game_id: gameIdInput
+        .val()
+        .trim(),
+      url: urlInput
+        .val()
+        .trim(),
+      cover: coverInput
         .val()
         .trim(),
       status: statusInput
