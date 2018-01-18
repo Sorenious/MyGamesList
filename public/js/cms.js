@@ -34,27 +34,22 @@ $(document).ready(function() {
   function handleFormSubmit(event) {
     event.preventDefault();
     // Wont submit the game if we are missing a status, title, or player
-    if (!titleInput.val().trim() || !gameIdInput.val().trim() || !urlInput.val().trim() || !coverInput.val().trim() || !statusInput.val().trim() || !playerSelect.val()) {
+    if (selectedGameData === null || !statusInput.val().trim() || !playerSelect.val()) {
+      console.log("SOmething other than A");
       return;
     }
     // Constructing a newGame object to hand to the database
     var newGame = {
-      title: titleInput
-        .val()
-        .trim(),
-      game_id: gameIdInput
-        .val()
-        .trim(),
-      url: urlInput
-        .val()
-        .trim(),
-      cover: coverInput
-        .val()
-        .trim(),
+      title: selectedGameData.name,
+      game_id: selectedGameData.id,
+      url: selectedGameData.url,
+      cover: selectedGameData.cover.url,
       status: statusInput
         .val()
         .trim(),
       PlayerId: playerSelect.val()
+
+
     };
 
     // If we're updating a game run updateGame to update a game
@@ -79,6 +74,8 @@ $(document).ready(function() {
     $.get("/api/search/" + title, populateList);
   }
 
+  var selectedGameData;
+
   function populateList(result) {
     console.log(result);
     
@@ -96,12 +93,23 @@ $(document).ready(function() {
         newGamePanelHeading.append(newGameTitle);
         newGamePanel.append(newGamePanelHeading);
         newGamePanel.data("gameData", result.body[i]);
+
+        newGamePanel.on("click", function() {
+          console.log($(this).data("gameData"));
+
+          selectedGameData = $(this).data("gameData");
+        });
+        
         $(".list").append(newGamePanel); 
     }
   }
 
   // Submits a new game and brings user to list page upon completion
   function submitGame(game) {
+    // check that selectedGameData is set here
+
+    // post data to API
+
     $.post("/api/games", game, function() {
       window.location.href = "/list";
     });
