@@ -14,6 +14,22 @@ const client = igdb('ffb3b6c1f815074d1a524717c119e142');
 // =============================================================
 module.exports = function(app) {
 
+  // GET route for searching for a title
+  app.get("/api/search/:title?", function (req, res) {
+    console.log(req.params.title);
+    client.games({
+      fields: ['id', 'name', 'url', 'cover'], // Return all fields
+      limit: 3, // Limit to 5 results
+      search: req.params.title
+    }).then(response => {
+      // response.body contains the parsed JSON response to this query
+
+      res.json(response);
+    }).catch(error => {
+      throw error;
+    });
+  });
+
   // GET route for getting all of the games
   app.get("/api/games", function(req, res) {
     var query = {};

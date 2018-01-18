@@ -68,6 +68,38 @@ $(document).ready(function() {
     }
   }
 
+  $("#search").on("click", searchGame);
+  
+  function searchGame() {
+    console.log("A");
+    var title = titleInput
+      .val()
+      .trim();
+
+    $.get("/api/search/" + title, populateList);
+  }
+
+  function populateList(result) {
+    console.log(result);
+    
+    for (i = 0; i < result.body.length; i ++) {
+        var newGamePanel = $("<div>");
+        newGamePanel.addClass("panel panel-default");
+        var newGamePanelHeading = $("<div>");
+        newGamePanelHeading.addClass("panel-heading");
+        var newGameCover = $("<img>");
+        newGameCover.attr("src", result.body[i].cover.url + " ");
+        var newGameTitle = $("<div>");
+        newGameTitle.text(result.body[i].name + " ");
+    
+        newGamePanelHeading.append(newGameCover);
+        newGamePanelHeading.append(newGameTitle);
+        newGamePanel.append(newGamePanelHeading);
+        newGamePanel.data("gameData", result.body[i]);
+        $(".list").append(newGamePanel); 
+    }
+  }
+
   // Submits a new game and brings user to list page upon completion
   function submitGame(game) {
     $.post("/api/games", game, function() {
