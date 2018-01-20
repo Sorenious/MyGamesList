@@ -116,13 +116,19 @@ $(document).ready(function() {
       "margin-top":
       "-10px"
     });
-    newGameTitle.text(game.title + " ");
+    var newUrl = $("<a>");
+    var newImg = $("<img>");
+    newImg.attr("src", game.cover);
+    newUrl.attr("href", game.url);
+    newGameTitle.append(newUrl);
+    newUrl.text(game.title + " ");
     newGameDate.text(formattedDate);
     newGameTitle.append(newGameDate);
     newGamePanelHeading.append(deleteBtn);
     newGamePanelHeading.append(statusSlct);
     newGamePanelHeading.append(newGameTitle);
     newGamePanelHeading.append(newGamePlayer);
+    newUrl.prepend(newImg);
     newGamePanel.append(newGamePanelHeading);
     newGamePanel.data("game", game);
     return newGamePanel;
