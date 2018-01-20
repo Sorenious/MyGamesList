@@ -88,9 +88,21 @@ $(document).ready(function() {
     var deleteBtn = $("<button>");
     deleteBtn.text("x");
     deleteBtn.addClass("delete btn btn-danger");
-    var editBtn = $("<button>");
-    editBtn.text("EDIT");
-    editBtn.addClass("edit btn btn-info");
+    var statusSlct = $("<select>");
+    if (game.status === "in-progress") {
+      statusSlct.append('<option value="in-progress" selected="selected">In-Progress</option>');
+      statusSlct.append('<option value="completed">Completed</option>');
+      statusSlct.append('<option value="wishlist">Wishlist</option>');
+    } else if (game.status === "completed") {
+      statusSlct.append('<option value="in-progress">In-Progress</option>');
+      statusSlct.append('<option value="completed" selected="selected">Completed</option>');
+      statusSlct.append('<option value="wishlist">Wishlist</option>');
+    } else {
+      statusSlct.append('<option value="in-progress">In-Progress</option>');
+      statusSlct.append('<option value="completed">Completed</option>');
+      statusSlct.append('<option value="wishlist" selected="selected">Wishlist</option>');
+    }
+    statusSlct.addClass("edit btn btn-info");
     var newGameTitle = $("<h2>");
     var newGameDate = $("<small>");
     var newGamePlayer = $("<h5>");
@@ -101,20 +113,14 @@ $(document).ready(function() {
       "margin-top":
       "-10px"
     });
-    var newGamePanelStatus = $("<div>");
-    newGamePanelStatus.addClass("panel-status");
-    var newGameStatus = $("<p>");
     newGameTitle.text(game.title + " ");
-    newGameStatus.text(game.status);
     newGameDate.text(formattedDate);
     newGameTitle.append(newGameDate);
     newGamePanelHeading.append(deleteBtn);
-    newGamePanelHeading.append(editBtn);
+    newGamePanelHeading.append(statusSlct);
     newGamePanelHeading.append(newGameTitle);
     newGamePanelHeading.append(newGamePlayer);
-    newGamePanelStatus.append(newGameStatus);
     newGamePanel.append(newGamePanelHeading);
-    newGamePanel.append(newGamePanelStatus);
     newGamePanel.data("game", game);
     return newGamePanel;
   }
@@ -130,11 +136,24 @@ $(document).ready(function() {
 
   // This function figures out which game we want to edit and takes it to the appropriate url
   function handleGameEdit() {
+    console.log($(this));
     var currentGame = $(this)
       .parent()
       .parent()
       .data("game");
-    window.location.href = "/cms?game_id=" + currentGame.id;
+    console.log(currentGame.id);
+    console.log(this.value);
+    $.ajax({
+      method: "PUT",
+      url: "/api/games",
+      data: {
+        status: this.value,
+        id: currentGame.id
+      }
+    })
+    .done(function() {
+      window.location.href = "/list";
+    });
   }
 
   // This function displays a messgae when there are no games
