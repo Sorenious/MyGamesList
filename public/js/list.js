@@ -8,8 +8,8 @@ $(document).ready(function() {
   var wishList = $(".wishlist");
   var gameCategorySelect = $("#category");
   // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handleGameDelete);
-  $(document).on("click", "button.edit", handleGameEdit);
+  $(".list-container").on("click", "button.delete", handleGameDelete);
+  $(".list-container").on("change", "select.edit", handleGameEdit);
   // Variable to hold our games
   var games;
 
