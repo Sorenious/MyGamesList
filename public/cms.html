@@ -25,19 +25,15 @@
 			<div class="col-md-6 col-md-offset-3">
 				<form id="cms">
 					<div class="form-group">
+						<div class="form-group">
+							<label for="category">Select Player:</label>
+							<select class="form-control" id="player">
+							</select>
+						</div>
 						<label for="title">Title:</label>
 						<input placeholder="Game Title" type="text" class="form-control" id="title">
 						<button type="submit" id="search" class="btn btn-success search">Search</button>
-						<div class="list"></div>						
-						<br />
-						<label for="game_id">Game Id:</label>
-						<input placeholder="IGDb Id" type="text" class="form-control" id="game_id">
-						<br />
-						<label for="url">URL:</label>
-						<input placeholder="Game URL" type="text" class="form-control" id="url">
-						<br />
-						<label for="cover">Cover Art:</label>
-						<input placeholder="Cover Image URL" type="text" class="form-control" id="cover">
+						<div class="list"></div>
 						<br />
 						<label for="status">Status:</label>
 						<select class="form-control" id="status">
@@ -47,11 +43,7 @@
 						</select>
 						<br />
 						<!--<textarea placeholder="Post Status" class="form-control" rows="10" id="status"></textarea>-->
-						<div class="form-group">
-							<label for="category">Select Player:</label>
-							<select class="form-control" id="player">
-  						</select>
-						</div>
+
 						<br />
 						<button type="submit" class="btn btn-success submit">Submit</button>
 					</div>

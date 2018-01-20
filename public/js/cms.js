@@ -80,22 +80,29 @@ $(document).ready(function() {
     console.log(result);
     
     for (i = 0; i < result.body.length; i ++) {
+        var newRow = $("<div>");
+        newRow.attr("class", "row");
         var newGamePanel = $("<div>");
         newGamePanel.addClass("panel panel-default");
         var newGamePanelHeading = $("<div>");
         newGamePanelHeading.addClass("panel-heading");
         var newGameCover = $("<img>");
         newGameCover.attr("src", result.body[i].cover.url + " ");
+        newGameCover.attr("class", "col-sm");
         var newGameTitle = $("<div>");
+        newGameTitle.attr("class", "col-sm");
         newGameTitle.text(result.body[i].name + " ");
     
-        newGamePanelHeading.append(newGameCover);
-        newGamePanelHeading.append(newGameTitle);
+        newRow.append(newGameCover);
+        newRow.append(newGameTitle);
+        newGamePanelHeading.append(newRow);
         newGamePanel.append(newGamePanelHeading);
         newGamePanel.data("gameData", result.body[i]);
 
         newGamePanel.on("click", function() {
           console.log($(this).data("gameData"));
+          $(".panel").css("border", "")
+          $(this).css("border", "5px solid blue");
 
           selectedGameData = $(this).data("gameData");
         });
