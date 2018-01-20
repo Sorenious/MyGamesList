@@ -2,7 +2,10 @@ $(document).ready(function() {
   /* global moment */
 
   // listContainer holds all of our games
-  var listContainer = $(".list-container");
+  //var listContainer = $(".list-container");
+  var inProgress = $(".in-progress");
+  var completed = $(".completed");
+  var wishList = $(".wishlist");
   var gameCategorySelect = $("#category");
   // Click events for the edit and delete buttons
   $(document).on("click", "button.delete", handleGameDelete);
@@ -55,12 +58,23 @@ $(document).ready(function() {
 
   // InitializeRows handles appending all of our constructed game HTML inside listContainer
   function initializeRows() {
-    listContainer.empty();
-    var gamesToAdd = [];
+    //listContainer.empty();
+    var inProgressGames = [];
+    var completedGames = [];
+    var wishListGames = [];
     for (var i = 0; i < games.length; i++) {
-      gamesToAdd.push(createNewRow(games[i]));
+      if (games[i].status === "in-progress") {
+        inProgressGames.push(createNewRow(games[i]));
+      } else if (games[i].status === "completed") {
+        completedGames.push(createNewRow(games[i]));
+      } else {
+        wishListGames.push(createNewRow(games[i]));
+      }
+      //gamesToAdd.push(createNewRow(games[i]));
     }
-    listContainer.append(gamesToAdd);
+    inProgress.append(inProgressGames);
+    completed.append(completedGames);
+    wishList.append(wishListGames);
   }
 
   // This function constructs a game's HTML
