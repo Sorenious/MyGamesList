@@ -11,7 +11,7 @@ form#cms {
 }
 
 .panel-heading button.delete,
-button.edit {
+select.edit {
   float: right;
   margin: 5px;
 }

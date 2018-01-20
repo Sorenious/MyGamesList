@@ -2,7 +2,7 @@ $(document).ready(function() {
   /* global moment */
 
   // listContainer holds all of our games
-  //var listContainer = $(".list-container");
+  var listContainer = $(".list-container");
   var inProgress = $(".in-progress");
   var completed = $(".completed");
   var wishList = $(".wishlist");
@@ -59,6 +59,9 @@ $(document).ready(function() {
   // InitializeRows handles appending all of our constructed game HTML inside listContainer
   function initializeRows() {
     //listContainer.empty();
+    inProgress.empty();
+    completed.empty();
+    wishList.empty();
     var inProgressGames = [];
     var completedGames = [];
     var wishListGames = [];
@@ -103,7 +106,7 @@ $(document).ready(function() {
       statusSlct.append('<option value="wishlist" selected="selected">Wishlist</option>');
     }
     statusSlct.addClass("edit btn btn-info");
-    var newGameTitle = $("<h2>");
+    var newGameTitle = $("<h3>");
     var newGameDate = $("<small>");
     var newGamePlayer = $("<h5>");
     newGamePlayer.text("Written by: " + game.Player.name);
@@ -163,7 +166,10 @@ $(document).ready(function() {
     if (id) {
       partial = " for Player #" + id;
     }
-    listContainer.empty();
+    //listContainer.empty();
+    inProgress.empty();
+    completed.empty();
+    wishList.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
     messageh2.html("No games yet" + partial + ", navigate <a href='/cms" + query +
