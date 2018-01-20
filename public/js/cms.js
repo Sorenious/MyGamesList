@@ -78,6 +78,7 @@ $(document).ready(function() {
 
   function populateList(result) {
     console.log(result);
+    $(".list").empty;
     
     for (i = 0; i < result.body.length; i ++) {
         var newRow = $("<div>");

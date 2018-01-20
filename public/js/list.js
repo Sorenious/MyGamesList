@@ -65,6 +65,7 @@ $(document).ready(function() {
     var inProgressGames = [];
     var completedGames = [];
     var wishListGames = [];
+    $(".playerHeading").text(games[0].Player.name + "'s List");
     for (var i = 0; i < games.length; i++) {
       if (games[i].status === "in-progress") {
         inProgressGames.push(createNewRow(games[i]));
@@ -109,7 +110,7 @@ $(document).ready(function() {
     var newGameTitle = $("<h3>");
     var newGameDate = $("<small>");
     var newGamePlayer = $("<h5>");
-    newGamePlayer.text("Written by: " + game.Player.name);
+    // newGamePlayer.text("Written by: " + game.Player.name);
     newGamePlayer.css({
       float: "right",
       color: "blue",
