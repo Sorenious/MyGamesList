@@ -10,6 +10,7 @@ $(document).ready(function() {
   // Click events for the edit and delete buttons
   $(".list-container").on("click", "button.delete", handleGameDelete);
   $(".list-container").on("change", "select.edit", handleGameEdit);
+  $("#popcorn").on("click", "button.steam", handleSteamStuff);
   // Variable to hold our games
   var games;
 
@@ -17,8 +18,11 @@ $(document).ready(function() {
   // Looks for a query param in the url for player_id
   var url = window.location.search;
   var playerId;
+  var rawPlayerId;
+
   if (url.indexOf("?player_id=") !== -1) {
     playerId = url.split("=")[1];
+    rawPlayerId = playerId;
     $("#specific-player").attr("href", "/cms?player_id=" + playerId);
     getGames(playerId);
     console.log(playerId);
@@ -67,6 +71,15 @@ $(document).ready(function() {
     var completedGames = [];
     var wishListGames = [];
     $(".playerHeading").text(games[0].Player.name + "'s List");
+    console.log(games);
+    console.log("Test");
+    if (games[0].Player.steamID != null) {
+      var steamBtn = $("<button>");
+      steamBtn.text("Add Steam Games");
+      steamBtn.addClass("steam btn btn-default");
+      steamBtn.attr("value", games[0].Player.steamID);
+      $("#popcorn").append(steamBtn);
+    }
     for (var i = 0; i < games.length; i++) {
       if (games[i].status === "in-progress") {
         inProgressGames.push(createNewRow(games[i]));
@@ -166,6 +179,38 @@ $(document).ready(function() {
       window.location.href = window.location.search;
     });
   }
+
+  function handleSteamStuff() {
+    console.log($(this));
+    $.get("/api/steam/" + steamID + "/games/recent")
+    .done(function(response) {
+      console.log(response.response.games[0].name)
+      for (var i = 0; i < response.response.games.length; i++) {
+        client.games({
+          fields: ['id', 'name', 'url', 'cover'], // Return all fields
+          limit: 3, // Limit to 5 results
+          search: response.response.games[0].name
+        }).then(response => {
+      // response.body contains the parsed JSON response to this query
+
+          db.Game.create({
+          title: response.name,
+          game_id: response.id,
+          url: response.url,
+          cover: response.cover.url,
+          status: "in-progress",
+          PlayerId: rawPlayerId
+        }
+            ).then(function(dbGame) {
+            res.json(dbGame);
+          });
+        }).catch(error => {
+          throw error;
+        });
+      }
+
+  });
+}
 
   // This function displays a messgae when there are no games
   function displayEmpty(id) {
