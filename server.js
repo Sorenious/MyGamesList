@@ -29,6 +29,7 @@ app.use(express.static("public"));
 require("./routes/html-routes.js")(app);
 require("./routes/player-api-routes.js")(app);
 require("./routes/game-api-routes.js")(app);
+require("./routes/steam-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

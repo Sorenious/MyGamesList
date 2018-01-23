@@ -36,7 +36,7 @@ select.edit {
   display: none;
 }
 
-#player-name, #player-pass {
+#player-name, #player-pass, #player-steam {
   width: 100%;
   height: 35px;
   margin-top: 5px;
