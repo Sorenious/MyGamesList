@@ -19,6 +19,7 @@ $(document).ready(function() {
   var url = window.location.search;
   var playerId;
   var rawPlayerId;
+  var steamID;
 
   if (url.indexOf("?player_id=") !== -1) {
     playerId = url.split("=")[1];
@@ -74,6 +75,7 @@ $(document).ready(function() {
     console.log(games);
     console.log("Test");
     if (games[0].Player.steamID != null) {
+      steamID = games[0].Player.steamID;
       var steamBtn = $("<button>");
       steamBtn.text("Add Steam Games");
       steamBtn.addClass("steam btn btn-default");
@@ -185,29 +187,29 @@ $(document).ready(function() {
     $.get("/api/steam/" + steamID + "/games/recent")
     .done(function(response) {
       console.log(response.response.games[0].name)
-      for (var i = 0; i < response.response.games.length; i++) {
-        client.games({
-          fields: ['id', 'name', 'url', 'cover'], // Return all fields
-          limit: 3, // Limit to 5 results
-          search: response.response.games[0].name
-        }).then(response => {
-      // response.body contains the parsed JSON response to this query
+      // for (var i = 0; i < response.response.games.length; i++) {
+      //   client.games({
+      //     fields: ['id', 'name', 'url', 'cover'], // Return all fields
+      //     limit: 3, // Limit to 5 results
+      //     search: response.response.games[0].name
+      //   }).then(response => {
+      // // response.body contains the parsed JSON response to this query
 
-          db.Game.create({
-          title: response.name,
-          game_id: response.id,
-          url: response.url,
-          cover: response.cover.url,
-          status: "in-progress",
-          PlayerId: rawPlayerId
-        }
-            ).then(function(dbGame) {
-            res.json(dbGame);
-          });
-        }).catch(error => {
-          throw error;
-        });
-      }
+      //     db.Game.create({
+      //     title: response.name,
+      //     game_id: response.id,
+      //     url: response.url,
+      //     cover: response.cover.url,
+      //     status: "in-progress",
+      //     PlayerId: rawPlayerId
+      //   }
+      //       ).then(function(dbGame) {
+      //       res.json(dbGame);
+      //     });
+      //   }).catch(error => {
+      //     throw error;
+      //   });
+      // }
 
   });
 }

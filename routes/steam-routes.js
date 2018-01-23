@@ -1,6 +1,10 @@
 // Dependencies
 var request = require("request");
 
+var db = require("../models");
+const igdb = require('igdb-api-node').default;
+const client = igdb('ffb3b6c1f815074d1a524717c119e142');
+
 
 module.exports = function(app) {
 
@@ -20,7 +24,33 @@ module.exports = function(app) {
 
         // return response from Steam-API to `res`
         res.setHeader('Content-Type', 'application/json');
-        res.send(steamHttpBody);
+        //res.send(steamHttpBody);
+        console.log(steamHttpBody);
+        console.log(JSON.parse(steamHttpBody).response);
+        //for (var i = 0; i < JSON.parse(steamHttpBody).response.games.length; i++) {
+        client.games({
+          fields: ['id', 'name', 'url', 'cover'], // Return all fields
+          limit: 1, // Limit to 1 results
+          search: JSON.parse(steamHttpBody).response.games[0].name
+        }).then(response => {
+      // response.body contains the parsed JSON response to this query
+            console.log(response);
+          db.Game.create({
+          title: response.body.name,
+          game_id: response.body.id,
+          url: response.body.url,
+          cover: response.body.cover.url,
+          status: "in-progress",
+          PlayerId: rawPlayerId
+        }
+            ).then(function(dbGame) {
+                console.log(dbGame);
+            res.json(dbGame);
+          });
+        }).catch(error => {
+          throw error;
+        });
+      //}
     });
   });
 }
