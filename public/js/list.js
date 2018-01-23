@@ -162,7 +162,7 @@ $(document).ready(function() {
       }
     })
     .done(function() {
-      window.location.href = "/list";
+      window.location.href = window.location.search;
     });
   }
 
