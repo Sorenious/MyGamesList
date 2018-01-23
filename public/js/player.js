@@ -2,6 +2,7 @@ $(document).ready(function() {
   // Getting references to the name inout and player container, as well as the table body
   var nameInput = $("#player-name");
   var passInput = $("#player-pass");
+  var steamID = $("#player-steam");
   var playerList = $("#player-list");
   var playerContainer = $(".player-container");
   // Adding event listeners to the form to create a new object, and the button to delete
@@ -25,6 +26,9 @@ $(document).ready(function() {
         .val()
         .trim(),
       pass: passInput
+        .val()
+        .trim(),
+      steamID: steamID
         .val()
         .trim()
     });
@@ -58,6 +62,7 @@ $(document).ready(function() {
       renderPlayerList(rowsToAdd);
       nameInput.val("");
       passInput.val("");
+      steamID.val("");
     });
   }
 
