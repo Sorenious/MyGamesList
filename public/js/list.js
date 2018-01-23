@@ -19,13 +19,14 @@ $(document).ready(function() {
   var playerId;
   if (url.indexOf("?player_id=") !== -1) {
     playerId = url.split("=")[1];
+    $("#specific-player").attr("href", "/cms?player_id=" + playerId);
     getGames(playerId);
+    console.log(playerId);
   }
   // If there's no playerId we just get all games as usual
   else {
     getGames();
   }
-
 
   // This function grabs games from the database and updates the view
   function getGames(player) {

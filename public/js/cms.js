@@ -119,7 +119,7 @@ $(document).ready(function() {
     // post data to API
 
     $.post("/api/games", game, function() {
-      window.location.href = "/list";
+      window.location.href = "/list?player_id=" + playerId;
     });
   }
 

@@ -46,7 +46,7 @@ select.edit {
   margin-top: 30px;
 }
 
-#title {
+#page-title {
   background-color:#273447;
   border-radius: 15px;
   color: white;
@@ -77,4 +77,49 @@ select.edit {
 
 #welcome-message {
   text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+body {
+  background-image: url(../assets/images/gaming-pattern-black.png);
+}
+
+.peanuts {
+  background-color: white;
+  border-radius: 5px;
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  max-width: 1170px;
+}
+
+#back-button {
+  background-color: darkred;
+  border-color: darkred;
+}
+
+#back-button:hover {
+  border-color: white;
+}
+
+.list {
+  background-color: white;
+  border-radius: 5px;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
+  max-width: 1170px;
+}
+
+a {
+  color: #3498db;
+}
+
+a:hover {
+  color: #1a7bbd;
+}
+
+.elepahnts {
+  text-decoration: underline;
 }

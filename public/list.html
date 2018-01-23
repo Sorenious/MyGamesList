@@ -6,22 +6,22 @@
   <title>MyGamesList - List</title>
   <!-- Latest compiled and minified CSS & JS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
 </head>
 
 <body>
   <div class="container">
     <div class="row">
-      <h1 class="col-lg" id="title">
+      <h1 class="col-lg" id="page-title">
         <img src="assets/images/icon.png" id="home-icon">My Games List</h1>
     </div>
   </div>
   <div class="container list">
     <div class="row" id="home-buttons">
       <div class="col-md-2 col-sm-2">
-        <a class="btn btn-default" href="/cms">New Game</a>
+        <a class="btn btn-default" id="specific-player" href="">New Game</a>
       </div>
       <div class="col-md-2 col-sm-2">
         <a class="btn btn-default" href="/players">Manage Players</a>
@@ -30,15 +30,15 @@
     <h1 class="playerHeading"></h1>
     <div class="row">
       <div class="col-md-12 list-container">
-        <h2>In Progress</h2>
+        <h2 class="elephants">In Progress</h2>
         <div class="in-progress">
         </div>
         <br>
-        <h2>Completed</h2>
+        <h2 class="elephants">Completed</h2>
         <div class="completed">
         </div>
         <br>
-        <h2>Wish List</h2>
+        <h2 class="elephants">Wish List</h2>
         <div class="wishlist">
         </div>
       </div>
