@@ -73,8 +73,8 @@ $(document).ready(function() {
     var wishListGames = [];
     $(".playerHeading").text(games[0].Player.name + "'s List");
     console.log(games);
-    console.log("Test");
-    if (games[0].Player.steamID != null) {
+    console.log(games[0].Player.steamID);
+    if (games[0].Player.steamID != "") {
       steamID = games[0].Player.steamID;
       var steamBtn = $("<button>");
       steamBtn.text("Add Steam Games");
