@@ -1,5 +1,5 @@
-<img src="https://raw.githubusercontent.com/Sorenious/MyGamesList/master/public/assets/images/icon.png" width="150" height="100">
-# My Games List 
+# My Games List
+<img src="https://raw.githubusercontent.com/Sorenious/MyGamesList/master/public/assets/images/icon.png" width="150" height="100"> 
 
 ## Overview
     An application built with the intention of helping gamers with the ever-persistant issue of keeping track of what
