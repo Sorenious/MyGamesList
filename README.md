@@ -9,8 +9,8 @@
     game information.  This application uses a Node and Express Web Server and is backed by a MySQL Database. 
 
 ## NPM Packages Used
-    * body-parser
-    * express
-    * igdb-api-node
-    * mysql2
-    * sequelize
+* body-parser
+* express
+* igdb-api-node
+* mysql2
+* sequelize
