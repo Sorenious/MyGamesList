@@ -184,9 +184,9 @@ $(document).ready(function() {
 
   function handleSteamStuff() {
     console.log($(this));
-    $.get("/api/steam/" + steamID + "/games/recent")
+    $.get("/api/steam/" + steamID + "/games/recent/" + rawPlayerId)
     .done(function(response) {
-      console.log(response.response.games[0].name)
+      //console.log(response.response.games[0].name)
       // for (var i = 0; i < response.response.games.length; i++) {
       //   client.games({
       //     fields: ['id', 'name', 'url', 'cover'], // Return all fields
@@ -210,7 +210,7 @@ $(document).ready(function() {
       //     throw error;
       //   });
       // }
-
+      window.location.href = window.location.search;
   });
 }
 

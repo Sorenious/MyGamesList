@@ -9,7 +9,7 @@ const client = igdb('ffb3b6c1f815074d1a524717c119e142');
 module.exports = function(app) {
 
   // GET route for pulling recent games from steam
-  app.get("/api/steam/:steamID/games/recent", function (req, res) {
+  app.get("/api/steam/:steamID/games/recent/:playerID", function (req, res) {
     // Steam URL to get recently played games, include API key
     var key = "DB283BA790F74856BE47880482D3845A"
     var queryURL = "http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + key + "&steamid=" + req.params.steamID + "&format=json";
@@ -36,12 +36,12 @@ module.exports = function(app) {
       // response.body contains the parsed JSON response to this query
             console.log(response);
           db.Game.create({
-          title: response.body.name,
-          game_id: response.body.id,
-          url: response.body.url,
-          cover: response.body.cover.url,
+          title: response.body[0].name,
+          game_id: response.body[0].id,
+          url: response.body[0].url,
+          cover: response.body[0].cover.url,
           status: "in-progress",
-          PlayerId: rawPlayerId
+          PlayerId: req.params.playerID
         }
             ).then(function(dbGame) {
                 console.log(dbGame);
